@@ -26,9 +26,6 @@ DEFAULT_NEGATIVE_PROMPT = (
     "jpeg artifacts, signature, watermark, username, blurry"
 )
 
-# 用于逻辑判断的文本模型名称 (Gitee AI / SiliconFlow 默认支持)
-TEXT_MODEL_NAME = "deepseek-ai/DeepSeek-V3" 
-
 
 @register(
     "astrbot_plugin_gitee_aiimg", 
@@ -41,6 +38,7 @@ class GiteeAIImage(Star):
         super().__init__(context)
         self.config = config
         self.base_url = config.get("base_url", DEFAULT_BASE_URL)
+        self.text_model_name = config.get("text_model", "deepseek-ai/DeepSeek-V3")
         
         # API Keys 配置
         self.api_keys = []
@@ -156,7 +154,7 @@ class GiteeAIImage(Star):
 
             # 调用 Chat 接口
             response = await client.chat.completions.create(
-                model=TEXT_MODEL_NAME, # 使用硬编码的通用文本模型
+                model=self.text_model_name, 
                 messages=[
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_msg}

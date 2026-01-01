@@ -3,91 +3,97 @@
         "description": "API Base URL",
         "type": "string",
         "default": "https://ai.gitee.com/v1",
-        "hint": "Gitee AI API 地址"
+        "hint": "Gitee AI API 地址 (Serverless)"
     },
     "api_key": {
-        "description": "API 密钥 (支持多 Key 轮询)",
+        "description": "API Key (支持多Key轮询)",
         "type": "list",
-        "hint": "Gitee AI API Key，支持配置多个 Key 以实现轮询调用",
         "default": [],
+        "hint": "点击 '+' 添加多个 Key。插件会自动轮询使用以提高并发能力。",
         "obvious_hint": true
     },
     "model": {
-        "description": "使用的模型名称",
+        "description": "绘图模型名称",
         "type": "string",
         "default": "z-image-turbo",
-        "hint": "例如: z-image-turbo"
+        "hint": "用于生成图片的模型，例如: z-image-turbo"
+    },
+    "text_model": {
+        "description": "辅助文本模型",
+        "type": "string",
+        "default": "deepseek-ai/DeepSeek-V3",
+        "hint": "用于优化提示词和穿搭逻辑的文本模型。建议使用 DeepSeek-V3 或 Qwen2.5。"
     },
     "size": {
-        "description": "图片大小",
+        "description": "默认分辨率",
         "type": "string",
         "default": "1024x1024",
-        "hint": "支持的尺寸: 1024x1024, 2048x2048, 1152x896, 768x1024 等"
+        "hint": "默认图片尺寸，支持 1024x1024, 1024x576 等"
     },
     "num_inference_steps": {
         "description": "推理步数",
         "type": "int",
         "default": 9,
-        "hint": "推理步数，数值越大质量越高但速度越慢，建议 5-20"
+        "hint": "数值越大画质越高但速度越慢，建议 8-20"
     },
     "negative_prompt": {
         "description": "负面提示词",
         "type": "string",
         "default": "low quality, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, normal quality, jpeg artifacts, signature, watermark, username, blurry",
-        "hint": "用于指定不希望出现在生成图片中的内容，留空则使用默认值"
+        "hint": "不希望出现在画面中的内容"
     },
     "generation_timeout": {
-        "description": "生成超时时间（秒）",
+        "description": "生成超时(秒)",
         "type": "int",
-        "default": 50,
-        "hint": "建议小于 AstrBot 工具调用超时时间，避免触发框架超时"
+        "default": 60,
+        "hint": "单张图片生成的最大等待时间"
     },
     "max_concurrent": {
-        "description": "最大并发生成数",
+        "description": "最大并发数",
         "type": "int",
         "default": 3,
-        "hint": "同时生成图片的最大数量，过高可能导致 API 限流"
+        "hint": "同时生成的最大数量，超过此数量的任务需排队"
     },
     "cache_cleanup_enabled": {
-        "description": "启用自动清理缓存",
+        "description": "开启缓存自动清理",
         "type": "bool",
         "default": true,
-        "hint": "是否自动清理过期的图片缓存"
+        "hint": "是否自动删除过期的图片文件"
     },
     "cache_max_age_hours": {
-        "description": "图片最大保留时间（小时）",
+        "description": "缓存保留时间(小时)",
         "type": "int",
         "default": 24,
-        "hint": "超过此时间的图片将被清理"
+        "hint": "超过该时间的图片将被删除"
     },
     "cache_max_count": {
-        "description": "最大保留图片数量",
+        "description": "最大缓存数量",
         "type": "int",
         "default": 200,
-        "hint": "超过此数量时，优先删除最旧的图片"
+        "hint": "保留最近生成的图片数量上限"
     },
     "cache_protect_minutes": {
-        "description": "图片保护期（分钟）",
+        "description": "清理保护期(分钟)",
         "type": "int",
         "default": 5,
-        "hint": "此时间内的图片不会被清理，防止删除正在发送的图片"
+        "hint": "刚生成的图片在多少分钟内绝对不会被删除（防止发送失败）"
     },
     "cache_cleanup_interval_minutes": {
-        "description": "清理任务执行间隔（分钟）",
+        "description": "清理检查间隔(分钟)",
         "type": "int",
         "default": 30,
-        "hint": "定时清理任务的执行间隔"
+        "hint": "后台清理任务执行的频率"
     },
     "persona_prefix": {
         "description": "人设外貌前缀",
         "type": "string",
         "default": "",
-        "hint": "自动注入到每次生成的提示词前，用于保持角色外貌一致性（例如: '20岁的日本女孩，黑色长发，蓝色眼睛'）"
+        "hint": "自动添加到 Prompt 最前面，用于保持角色一致性。例如：'1girl, pink hair, blue eyes'"
     },
     "auto_inject_persona": {
-        "description": "自动注入人设前缀",
+        "description": "自动注入人设",
         "type": "bool",
         "default": false,
-        "hint": "是否在每次生成图片时自动添加人设前缀（LLM 调用时建议关闭，手动生成时建议开启）"
+        "hint": "是否强制在所有生图请求前添加人设前缀"
     }
 }
