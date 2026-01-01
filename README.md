@@ -70,7 +70,7 @@
 ### 方式二：自然语言 (LLM)
 直接在对话中发送需求：
 - "画一张你在海边散步的照片"
-- "生成一个穿着机甲的战士"
+- "生成一个你穿着机甲的战士"
 
 > 如果你配置了人设，Bot 会自动尝试维持人设一致性。
 
@@ -92,6 +92,7 @@
 <img width="1152" height="2048" alt="60393b1ea20d432822c21a61ba48d946" src="https://github.com/user-attachments/assets/3d8195e5-5d89-4a12-806e-8a81e348a96c" />
 
 <img width="1152" height="2048" alt="3e5ee8d438fa797730127e57b9720454_720" src="https://github.com/user-attachments/assets/c270ae7f-25f6-4d96-bbed-0299c9e61877" />
+
 
 
 
