@@ -22,12 +22,72 @@
         "description": "图片大小",
         "type": "string",
         "default": "1024x1024",
-        "hint": "例如: 1024x1024"
+        "hint": "支持的尺寸: 1024x1024, 2048x2048, 1152x896, 768x1024 等"
     },
     "num_inference_steps": {
         "description": "推理步数",
         "type": "int",
         "default": 9,
-        "hint": "推理步数，默认 9"
+        "hint": "推理步数，数值越大质量越高但速度越慢，建议 5-20"
+    },
+    "negative_prompt": {
+        "description": "负面提示词",
+        "type": "string",
+        "default": "low quality, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, normal quality, jpeg artifacts, signature, watermark, username, blurry",
+        "hint": "用于指定不希望出现在生成图片中的内容，留空则使用默认值"
+    },
+    "generation_timeout": {
+        "description": "生成超时时间（秒）",
+        "type": "int",
+        "default": 50,
+        "hint": "建议小于 AstrBot 工具调用超时时间，避免触发框架超时"
+    },
+    "max_concurrent": {
+        "description": "最大并发生成数",
+        "type": "int",
+        "default": 3,
+        "hint": "同时生成图片的最大数量，过高可能导致 API 限流"
+    },
+    "cache_cleanup_enabled": {
+        "description": "启用自动清理缓存",
+        "type": "bool",
+        "default": true,
+        "hint": "是否自动清理过期的图片缓存"
+    },
+    "cache_max_age_hours": {
+        "description": "图片最大保留时间（小时）",
+        "type": "int",
+        "default": 24,
+        "hint": "超过此时间的图片将被清理"
+    },
+    "cache_max_count": {
+        "description": "最大保留图片数量",
+        "type": "int",
+        "default": 200,
+        "hint": "超过此数量时，优先删除最旧的图片"
+    },
+    "cache_protect_minutes": {
+        "description": "图片保护期（分钟）",
+        "type": "int",
+        "default": 5,
+        "hint": "此时间内的图片不会被清理，防止删除正在发送的图片"
+    },
+    "cache_cleanup_interval_minutes": {
+        "description": "清理任务执行间隔（分钟）",
+        "type": "int",
+        "default": 30,
+        "hint": "定时清理任务的执行间隔"
+    },
+    "persona_prefix": {
+        "description": "人设外貌前缀",
+        "type": "string",
+        "default": "",
+        "hint": "自动注入到每次生成的提示词前，用于保持角色外貌一致性（例如: '20岁的日本女孩，黑色长发，蓝色眼睛'）"
+    },
+    "auto_inject_persona": {
+        "description": "自动注入人设前缀",
+        "type": "bool",
+        "default": false,
+        "hint": "是否在每次生成图片时自动添加人设前缀（LLM 调用时建议关闭，手动生成时建议开启）"
     }
 }
