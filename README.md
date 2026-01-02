@@ -84,6 +84,17 @@
 
 - 生成的图片会临时保存在 `data/plugins/astrbot_plugin_gitee_aiimg/images` 目录下。
 
+- 关于 LLM重复调用 - 同一条用户消息会触发多次 draw_image 调用的说明。
+- 这个问题不是插件能完全解决的，需要在人格设定中添加约束，配合插件使用效果好。
+
+- （推荐）在你的机器人人格设定中添加：
+```
+    【重要规则】
+    当需要发送图片时：
+    1. 不要在调用draw_image工具的同时说任何话
+    2. 先调用工具，等工具返回后再说话
+    3. 不要说"给你看"、"稍等"、"发给你"等前置语
+```
 
 ### 出图展示区
 
@@ -92,6 +103,7 @@
 <img width="1152" height="2048" alt="60393b1ea20d432822c21a61ba48d946" src="https://github.com/user-attachments/assets/3d8195e5-5d89-4a12-806e-8a81e348a96c" />
 
 <img width="1152" height="2048" alt="3e5ee8d438fa797730127e57b9720454_720" src="https://github.com/user-attachments/assets/c270ae7f-25f6-4d96-bbed-0299c9e61877" />
+
 
 
 
