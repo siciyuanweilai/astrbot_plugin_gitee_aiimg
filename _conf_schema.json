@@ -28,19 +28,45 @@
         "description": "默认分辨率",
         "type": "string",
         "default": "1024x1024",
+        "options": [
+            "1024x1024",
+            "512x512",
+            "768x1024",
+            "1024x768",
+            "1152x896",
+            "896x1152",
+            "1024x576",
+            "576x1024"
+        ],
         "hint": "默认图片尺寸，支持 1024x1024, 1024x576 等"
     },
     "num_inference_steps": {
         "description": "推理步数",
         "type": "int",
         "default": 9,
+        "slider": {
+            "min": 1,
+            "max": 50,
+            "step": 1
+        },
         "hint": "数值越大画质越高但速度越慢，建议 8-20"
     },
     "negative_prompt": {
         "description": "负面提示词",
-        "type": "string",
+        "type": "text",
         "default": "low quality, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, normal quality, jpeg artifacts, signature, watermark, username, blurry",
         "hint": "不希望出现在画面中的内容"
+    },
+    "debounce_interval": {
+        "description": "防抖时长(秒)",
+        "type": "int",
+        "default": 10,
+        "slider": {
+            "min": 0,
+            "max": 60,
+            "step": 1
+        },
+        "hint": "防止用户短时间内重复点击，每个用户独立计时"
     },
     "generation_timeout": {
         "description": "生成超时(秒)",
@@ -53,6 +79,24 @@
         "type": "int",
         "default": 3,
         "hint": "同时生成的最大数量，超过此数量的任务需排队"
+    },
+    "edit_base_url": {
+        "description": "图生图 Base URL",
+        "type": "string",
+        "default": "",
+        "hint": "图生图 API 地址，留空则默认使用上方的 Base URL"
+    },
+    "edit_api_key": {
+        "description": "图生图 API Key",
+        "type": "list",
+        "default": [],
+        "hint": "图生图专用 Key，留空则默认使用上方的 API Key"
+    },
+    "edit_model": {
+        "description": "图生图模型",
+        "type": "string",
+        "default": "Qwen-Image-Edit-2511",
+        "hint": "用于图片编辑的模型名称"
     },
     "cache_cleanup_enabled": {
         "description": "开启缓存自动清理",
@@ -86,9 +130,9 @@
     },
     "persona_prefix": {
         "description": "人设外貌前缀",
-        "type": "string",
+        "type": "text",
         "default": "",
-        "hint": "自动添加到 Prompt 最前面，用于保持角色一致性。例如：'1girl, pink hair, blue eyes'"
+        "hint": "自动添加到 Prompt 最前面，用于保持角色一致性。支持中英文，例如：1girl, pink hair, blue eyes"
     },
     "auto_inject_persona": {
         "description": "自动注入人设",
